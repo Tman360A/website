@@ -25,10 +25,14 @@ public class AccountController {
 
     @SuppressWarnings("null")
     @PostMapping("api/sign-up")
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        return ResponseEntity.ok(this.accountRepo.save(account));
+    public ResponseEntity<Account> createAccount(@RequestBody Account requestedAccount) {
+        for (Account account : accountRepo.findAll()) {
+            if (account.getEmail().equals(requestedAccount.getEmail())) {
+                return ResponseEntity.status(400).body(requestedAccount);
+            }
+        }
+        return ResponseEntity.ok(this.accountRepo.save(requestedAccount));
     }
-    
     
     @CrossOrigin
     @PostMapping(value="api/login", consumes = "application/json")
