@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AccountController {
 
     @CrossOrigin
-    @PostMapping("api/login")
-    public ResponseEntity<String> handleString(@RequestBody String myString) {
+    @PostMapping(value="api/login", consumes = "application/json")
+    public ResponseEntity<String> loginRequest(@RequestBody AccountRequest request) {
     // Do something with the string here
-        return ResponseEntity.ok("Received string: " + myString + " YES YOU DID IT");
+        return ResponseEntity.ok( request.getEmail() + " and " + request.getPassword());
     }
 }
