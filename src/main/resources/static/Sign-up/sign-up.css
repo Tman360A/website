@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+input {
+    padding: 6px ;
+    border: none;
+}
+
+button {
+    color: white;
+    background-color: darkslategrey;
+    border: none; 
+    padding: 15px 32px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(35, 58, 58);
+}
