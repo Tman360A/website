@@ -1,3 +1,3 @@
 function goToLogin() {
-    window.location.replace("Login/login.htm");
+    window.location.replace("login.htm");
 }
