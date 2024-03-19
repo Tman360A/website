@@ -6,7 +6,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -23,12 +29,23 @@ public class AccountController {
        return ResponseEntity.ok(this.accountRepo.findAll());
     }
 
+    @GetMapping("api/{userName}")
+    public ResponseEntity<Account> getMethodName(@PathVariable String userName) {
+        for (Account account : accountRepo.findAll()) {
+            if (account.getUserName().equals(userName)) {
+                return ResponseEntity.ok().body(account);
+            } 
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
+
     @SuppressWarnings("null")
     @PostMapping("api/sign-up")
     public ResponseEntity<Account> createAccount(@RequestBody Account requestedAccount) {
         for (Account account : accountRepo.findAll()) {
             if (account.getEmail().equals(requestedAccount.getEmail())) {
-                return ResponseEntity.status(400).body(requestedAccount);
+                return ResponseEntity.notFound().build();
             }
         }
         return ResponseEntity.ok(this.accountRepo.save(requestedAccount));

@@ -1,6 +1,8 @@
 function validate() {
-  let status = document.getElementById("status");
-  if (!document.getElementById("email").checkValidity()) {
+  const status = document.getElementById("status");
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (emailPattern.test(document.getElementById("email").value)) {
     status.style.color = "red";
     status.textContent = "Not valid email";
   } else {

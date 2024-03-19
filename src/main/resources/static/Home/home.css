@@ -1,3 +1,36 @@
-button {
-    align-content: end;
+/* Style for the sidebar */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Start off-screen */
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    padding-top: 20px;
+    transition: left 0.5s ease-in-out; /* Add smooth transition */
+}
+
+/* Style for sidebar links */
+#sidebar a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+/* Style for active link */
+#sidebar a:hover {
+    background-color: #555;
+}
+
+/* Style for page content */
+#content {
+    margin-left: 0;
+    padding-left: 20px; /* Add padding when sidebar is closed */
+    transition: padding-left 0.5s ease-in-out; /* Add smooth transition */
+}
+
+/* Adjust content padding when sidebar is open */
+#content.open {
+    padding-left: 220px; /* Adjust for sidebar width */
 }
