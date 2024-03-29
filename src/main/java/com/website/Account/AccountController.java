@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -30,7 +29,7 @@ public class AccountController {
     }
 
     @GetMapping("api/{userName}")
-    public ResponseEntity<Account> getMethodName(@PathVariable String userName) {
+    public ResponseEntity<Account> getUserByPath(@PathVariable String userName) {
         for (Account account : accountRepo.findAll()) {
             if (account.getUserName().equals(userName)) {
                 return ResponseEntity.ok().body(account);
@@ -38,6 +37,17 @@ public class AccountController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PostMapping("api/login")
+    public ResponseEntity<String> getUserID(@RequestParam String UserName) {
+        for (Account account : accountRepo.findAll()) {
+            if (account.getUserName().equals(UserName)) {
+                return ResponseEntity.ok().body(account.getId());
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
     
 
     @SuppressWarnings("null")
@@ -52,7 +62,7 @@ public class AccountController {
     }
     
     @CrossOrigin
-    @PostMapping(value="api/login", consumes = "application/json")
+    @PostMapping(value="api/logins", consumes = "application/json")
     public ResponseEntity<String> loginRequest(@RequestBody AccountRequest request) {
     // Do something with the string here
         return ResponseEntity.ok( request.getEmail() + " and " + request.getPassword());

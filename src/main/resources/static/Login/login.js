@@ -12,26 +12,33 @@ function validate() {
   }
 }
 
-function sendEmailAndPasswordToServer() {
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  const account = JSON.stringify({email, password});
-  fetch('/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: account
-  })
-  .then(response => response.text())
-  .then(data => {
-    console.log('Received response:', data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-  }
+ async function sendEmailAndPasswordToServer() {
+  const userName = document.getElementById("user-name-input").value;
+  //const email = document.getElementById("email-input").value;
+  const password = document.getElementById("password-input").value;
+  const statusElement = document.getElementById("status-text");
+  const account = JSON.stringify({userName});
+  try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: account
+      });
 
+      if(!response.ok) {
+          console.error("Error: user not found");
+          statusElement.style.color = "red";
+          statusElement.textContent = "user not found"
+          return;
+      }
+
+      console.log('Account Id:', response);
+  } catch (error) {
+      console.error("Error:", error);
+  }
+}
 
 
 
