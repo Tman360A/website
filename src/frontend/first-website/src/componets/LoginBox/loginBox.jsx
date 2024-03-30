@@ -4,50 +4,33 @@ import "./LoginBox.css";
 function LoginBox() {
     
     const userName = useRef(null);
-    const Tman = useRef(null);
+    const password = useRef(null)
+    const status = useRef(null);
 
-    const [text, setText] = useState('Initial value');
+    const [text, setText] = useState("Insert User Name and password");
+    const [textColor, setTextColor] = useState(null);
 
 
     async function getUser() {
-        const httpRequest = "http://localhost:1111/api/" + userName.current.value;
-        const account = await fetch(httpRequest);
-        const userData = await account.json();
-        setText(userData.password);
-    }
-
-    async function fetchData() {
-
-        const requestedUserName = userName.current.value;
-
         try {
-            const response = fetch("http://localhost:1111/api/login" ,{
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: requestedUserName
-            });
-
-            if(!response.ok) {
-                console.error("Error: user not found");
-                statusElement.style.color = "red";
-                statusElement.textContent = "user not found"
-                return;
-            }
-
-            console.log('Account Id:', response);
+            const httpRequest = "http://localhost:1111/api/" + userName.current.value;
+            const account = await fetch(httpRequest);
+            const userData = await account.json();
+            setText(userData.password);
+            setTextColor("hsl(120, 75%, 50%)")
         } catch {
-            console.error("Error:", error);
+            setText("Invalid User Name")
+            setTextColor("hsl(0, 100%, 50%)")
         }
     }
 
     return(
-        <>
-            <input type="text" ref={userName} placeholder="User Name"/>
+        <ul className="loginBox">
+            <input ref={userName} placeholder="User Name"/>
+            <input ref={password} placeholder="Password" />
             <button onClick={getUser}>Submit</button>
-            <p ref={Tman}>{text}</p>
-        </>
+            <p style={{ color: textColor }} ref={status}>{text}</p>
+        </ul>
     );
 }
 

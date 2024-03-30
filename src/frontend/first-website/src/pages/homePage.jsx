@@ -1,6 +1,5 @@
-
-import "./pagesCss/home.css";
 import NavMain from '../componets/NavMain/NavMain';
+import "./pagesCss/homePage.css";
 
 function homePage() {
   
