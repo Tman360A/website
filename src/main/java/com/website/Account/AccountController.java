@@ -50,7 +50,6 @@ public class AccountController {
         return ResponseEntity.notFound().build();
     }
     
-    @SuppressWarnings("null")
     @PostMapping("api/sign-up")
     public ResponseEntity<Account> createAccount(@RequestBody Account requestedAccount) {
         for (Account account : accountRepo.findAll()) {
